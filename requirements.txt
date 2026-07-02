@@ -1,0 +1,9 @@
+# rank.py is pure Python stdlib (json, csv, gzip, re, datetime, math, argparse).
+# No third-party packages are required to run the ranking pipeline.
+#
+# If a sentence-transformers embeddings layer is added in a future iteration, add:
+#   sentence-transformers>=2.2.2
+#   torch>=2.0.0          # CPU build; do NOT install the CUDA variant
+#
+# All helper scripts (audit_honeypots.py, spot_check.py, run_and_validate.sh)
+# are also pure stdlib — no additional installs needed.

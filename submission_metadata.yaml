@@ -1,0 +1,107 @@
+# Redrob Hackathon — Submission Metadata
+#
+# Copied from submission_metadata_template.yaml.
+# Fields marked  # TODO:  must be completed by hand before final upload.
+# DO NOT invent team/contact values — fill them in yourself.
+# The fields here must match what you submit via the portal at upload time.
+# Stage 3 review uses this file to verify your portal metadata.
+
+# ============================================================================
+# Team identity
+# ============================================================================
+team_name: "TODO: your-team-name-here"  # Used in leaderboard and announcements
+
+primary_contact:
+  name: "TODO: Full Name"
+  email: "TODO: primary@example.com"   # Used for all organizer communication
+  phone: "TODO: +91-XXXXXXXXXX"        # Used for top-50 / top-10 outreach
+
+team_members:
+  - name: "TODO: Member 1 Full Name"
+    email: "TODO: member1@example.com"
+    role: "TODO: e.g. ML Engineer / Team Lead"
+  # Add more members as needed; solo participants list just one member
+
+# ============================================================================
+# Code and reproducibility
+# ============================================================================
+github_repo: "TODO: https://github.com/YOUR_USERNAME/YOUR_REPO"
+# Required. Must be reachable. Private repos OK if you can grant organizer
+# access at Stage 3 (the email to add will be communicated then).
+
+sandbox_link: "TODO: https://colab.research.google.com/drive/YOUR_NOTEBOOK_ID"
+# Required. A working hosted environment (Colab notebook) where the ranker
+# can be run on a small candidate sample.
+# See Section 10.5 of submission_spec.md for acceptable platforms.
+
+reproduce_command: "python rank.py --candidates ./candidates.jsonl.gz --out ./submission.csv --topn 100"
+# The single command that produces submission.csv from candidates.jsonl.gz.
+# Runs end-to-end within 5 minutes on CPU with 16GB RAM and no network.
+
+# ============================================================================
+# Compute environment
+# ============================================================================
+compute:
+  platform: "TODO: e.g. MacBook Pro M2 / AWS EC2 c5.4xlarge / Local Windows box"
+  cpu_cores: 0          # TODO: replace 0 with actual number of CPU cores used
+  ram_gb: 16            # Available RAM in GB (must be ≤ 16 to pass constraint)
+  python_version: "TODO: e.g. 3.11.4"   # python --version
+  os: "TODO: e.g. Windows 11 / Ubuntu 22.04 LTS / macOS 14.2"
+  uses_gpu_for_inference: false          # Must be false — GPU not permitted
+  has_network_during_ranking: false      # Must be false — no API calls during ranking
+  pre_computation_required: false        # true only if embeddings/indexes are pre-built offline
+  pre_computation_time_minutes: 0        # 0 because rank.py needs no pre-computation step
+
+# ============================================================================
+# AI tools declaration
+# ============================================================================
+# Transparency only — declared use is NOT penalized. Be honest.
+# Stage 5 interview may verify these declarations against your code.
+ai_tools_used:
+  - "Antigravity (Google DeepMind)"   # used to scaffold helper scripts and README
+  # Add any others: "Claude", "ChatGPT", "GitHub Copilot", "Cursor", "Gemini", etc.
+
+ai_usage_summary: |
+  TODO: Briefly describe how AI tools were used. Examples:
+  - "Used Antigravity to scaffold scripts/audit_honeypots.py, scripts/spot_check.py,
+     Makefile, README.md, and submission_metadata.yaml. Core scoring logic in rank.py
+     is original work. No candidate data was fed to any LLM."
+  - "Used Claude for code review and architectural discussion."
+  - "No AI tools used."
+
+# ============================================================================
+# Approach summary (≤200 words recommended)
+# ============================================================================
+methodology_summary: |
+  Rule-based hybrid scorer built directly against the JD's stated priorities
+  for "Senior AI Engineer — Founding Team".
+
+  Scoring has four layers:
+  1. Must-have capability score (retrieval/embeddings, vector DB, Python,
+     evaluation frameworks) — weighted 78% of the capability signal.
+     Each component requires BOTH a skill entry with meaningful duration_months
+     AND corroborating career-history text, guarding against keyword stuffers.
+  2. Nice-to-have score (LoRA/PEFT, LTR, distributed systems, open source)
+     — weighted 22% of capability.
+  3. Logistics multiplier (location, years-of-experience band, notice period)
+     — scales capability score in [0.55, 1.0]; cannot manufacture fit from zero.
+  4. Anti-pattern penalties (consulting-only career, title-chaser, keyword
+     stuffer, CV/speech specialist, pure researcher, LLM-wrapper-only) applied
+     as multiplicative factors before behavioral signals.
+  5. Behavioral multiplier (open_to_work, recency, recruiter_response_rate,
+     interview_completion_rate, offer_acceptance_rate, verified signals) —
+     bounded to [0.4, 1.2].
+  6. Honeypot detection excludes internally-inconsistent profiles from the top 100.
+
+  Pure Python stdlib. No GPU, no network, no LLM calls. ~TODO: X seconds for 100K
+  candidates on CPU.
+
+# ============================================================================
+# Declarations
+# ============================================================================
+declarations:
+  read_submission_spec: true         # I have read submission_spec.md in full
+  code_is_original_work: true        # My code is my team's original work
+  no_collusion: true                 # I have not coordinated with other teams
+  honeypot_check_done: true          # scripts/audit_honeypots.py explicitly checks
+  reproduction_tested: false         # TODO: set to true after running make submit
