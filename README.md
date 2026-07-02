@@ -188,6 +188,12 @@ clearly timed phase distinct from the 5-minute ranking budget.
 
 ---
 
+## Sandbox (evaluation demo)
+
+A hosted Streamlit sandbox for evaluators is available — see [sandbox/README.md](./sandbox/README.md) for local-run and Streamlit Community Cloud deployment instructions.
+
+---
+
 ## Submission checklist
 
 - [ ] `make submit` completes without errors
